@@ -7,6 +7,7 @@ export const MyStateProvider = ({ children }) => {
     const {contract} = useContract("0x08bAA308336ED50F7C081bF2493B79FEB50E27a9")
     const {mutateAsync: insertComment} = useContractWrite(contract, 'insertComment')
     const address = useAddress()
+    console.log(address)
     const connect = useMetamask()
     const [darkMode, setDarkMode] = React.useState(true)
     const [userDetails, setUserDetails] = React.useState({
