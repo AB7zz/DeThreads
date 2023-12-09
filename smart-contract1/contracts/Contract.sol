@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 contract CommentContract {
     struct Comment {
+        uint256 id;
         string url;
         string comment;
         address userAddress;
@@ -10,6 +11,7 @@ contract CommentContract {
         int votes;
         mapping(address => bool) upvoters;
         mapping(address => bool) downvoters;
+        Comment[] replies;
     }
 
     mapping(address => string) public userAccounts;
@@ -24,12 +26,28 @@ contract CommentContract {
 
     function insertComment(string memory _url, string memory _comment) public {
         Comment memory newComment;
+        newComment.id = comments.length + 1;
         newComment.url = _url;
         newComment.comment = _comment;
         newComment.userAddress = msg.sender;
         newComment.username = userAccounts[msg.sender];
         newComment.votes = 0;
+        newComment.replies = new Comment[](0);
         comments.push(newComment);
+    }
+
+    function addReply(uint256 _commentId, string memory _url, string memory _comment) public {
+        Comment storage parentComment = comments[_commentId];
+
+        Comment memory newReply;
+        newReply.id = parentComment.replies.length + 1;
+        newReply.url = _url;
+        newReply.comment = _comment;
+        newReply.userAddress = msg.sender;
+        newReply.username = userAccounts[msg.sender];
+        newReply.votes = 0;
+
+        parentComment.replies.push(newReply);
     }
 
     function readUsers() public view returns (string[] memory, address[] memory) {
