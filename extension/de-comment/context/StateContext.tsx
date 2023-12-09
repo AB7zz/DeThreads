@@ -1,9 +1,11 @@
 import React from 'react'
-require('dotenv').config();
+import { useAddress, useMetamask } from '@thirdweb-dev/react'
 
 interface StateContextState {
     darkMode: boolean;
     page: string;
+    connect: any;
+    address: any;
 }
 
 interface StateContextValue extends StateContextState {
@@ -14,6 +16,8 @@ interface StateContextValue extends StateContextState {
 const MyStateContext = React.createContext<StateContextValue>({
     darkMode: true,
     page: '/connect',
+    connect: undefined,
+    address: undefined,
     setDarkMode: () => {},
     setPage: () => {}
 });
@@ -21,10 +25,14 @@ const MyStateContext = React.createContext<StateContextValue>({
 export const MyStateProvider = ({ children }) => {
     const [darkMode, setDarkMode] = React.useState(true)
     const [page, setPage] = React.useState('/connect')
+    const connect = useMetamask()
+    const address = useAddress()
     return (
         <MyStateContext.Provider value={{
             darkMode,
             page,
+            connect,
+            address,
             setPage,
             setDarkMode
         }}>
