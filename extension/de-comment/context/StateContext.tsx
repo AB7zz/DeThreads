@@ -1,6 +1,6 @@
 import React from 'react'
 import createMetaMaskProvider from 'metamask-extension-provider'
-
+require('dotenv').config();
 
 interface UserDetails {
     wallet: string;
