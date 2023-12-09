@@ -1,9 +1,4 @@
 import React from 'react'
+import { IPFS } from 'js-ipfs'
+import IPFSUploader from 'react-ipfs-uploader'
 
-const TestIPFS = () => {
-  return (
-    <div>TestIPFS</div>
-  )
-}
-
-export default TestIPFS

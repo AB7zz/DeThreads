@@ -1,5 +1,5 @@
 import React from 'react'
-require('dotenv').config();
+// require('dotenv').config();
 
 interface StateContextState {
     darkMode: boolean;
@@ -13,14 +13,14 @@ interface StateContextValue extends StateContextState {
 
 const MyStateContext = React.createContext<StateContextValue>({
     darkMode: true,
-    page: '/comments',
+    page: '/testipfs',
     setDarkMode: () => {},
     setPage: () => {}
 });
 
 export const MyStateProvider = ({ children }) => {
     const [darkMode, setDarkMode] = React.useState(true)
-    const [page, setPage] = React.useState('/comments')
+    const [page, setPage] = React.useState('/testipfs')
     return (
         <MyStateContext.Provider value={{
             darkMode,

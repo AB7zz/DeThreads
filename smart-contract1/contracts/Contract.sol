@@ -9,14 +9,20 @@ contract CommentContract {
         address userAddress;
         string username;
         int votes;
-        mapping(address => bool) upvoters;
-        mapping(address => bool) downvoters;
-        Comment[] replies;
+        address[] upvoters;
+        address[] downvoters;
+        uint256 parentId;
+    }
+
+    struct CommentMetadata {
+        uint256 id;
+        string url;
     }
 
     mapping(address => string) public userAccounts;
     mapping(string => address) public usernameToAddress;
     Comment[] public comments;
+    CommentMetadata[] public commentsMetadata;
 
     function createAccount(address _walletAddress, string memory _username) public {
         require(usernameToAddress[_username] == address(0), "Username already exists");
@@ -25,29 +31,17 @@ contract CommentContract {
     }
 
     function insertComment(string memory _url, string memory _comment) public {
-        Comment memory newComment;
-        newComment.id = comments.length + 1;
-        newComment.url = _url;
-        newComment.comment = _comment;
-        newComment.userAddress = msg.sender;
-        newComment.username = userAccounts[msg.sender];
-        newComment.votes = 0;
-        newComment.replies = new Comment[](0);
-        comments.push(newComment);
+        uint256 parentId = 0;
+        comments.push(Comment(comments.length + 1, _url, _comment, msg.sender, userAccounts[msg.sender], 0, new address[](0), new address[](0), parentId));
+        commentsMetadata.push(CommentMetadata(comments.length, _url));
     }
 
-    function addReply(uint256 _commentId, string memory _url, string memory _comment) public {
-        Comment storage parentComment = comments[_commentId];
+    function addReply(uint256 _parentCommentId, string memory _url, string memory _comment) public {
+        require(_parentCommentId > 0 && _parentCommentId <= comments.length, "Invalid parent comment ID");
 
-        Comment memory newReply;
-        newReply.id = parentComment.replies.length + 1;
-        newReply.url = _url;
-        newReply.comment = _comment;
-        newReply.userAddress = msg.sender;
-        newReply.username = userAccounts[msg.sender];
-        newReply.votes = 0;
-
-        parentComment.replies.push(newReply);
+        uint256 parentId = _parentCommentId;
+        comments.push(Comment(comments.length + 1, _url, _comment, msg.sender, userAccounts[msg.sender], 0, new address[](0), new address[](0), parentId));
+        commentsMetadata.push(CommentMetadata(comments.length, _url));
     }
 
     function readUsers() public view returns (string[] memory, address[] memory) {
@@ -63,23 +57,87 @@ contract CommentContract {
         return (usernames, walletAddresses);
     }
 
-    function upvote(uint256 _commentIndex) public {
-        require(_commentIndex < comments.length, "Invalid comment index");
+    function readComments(string memory _url) public view returns (uint256[] memory) {
+        uint256 count = 0;
+        uint256 length = commentsMetadata.length;
 
-        Comment storage comment = comments[_commentIndex];
-        require(!comment.upvoters[msg.sender], "Already upvoted");
+        for (uint256 i = 0; i < length; i++) {
+            if (keccak256(bytes(commentsMetadata[i].url)) == keccak256(bytes(_url))) {
+                count++;
+            }
+        }
 
-        comment.upvoters[msg.sender] = true;
-        comment.votes++;
+        uint256[] memory result = new uint256[](count);
+        uint256 index = 0;
+
+        for (uint256 i = 0; i < length; i++) {
+            if (keccak256(bytes(commentsMetadata[i].url)) == keccak256(bytes(_url))) {
+                result[index] = commentsMetadata[i].id;
+                index++;
+            }
+        }
+
+        return result;
     }
 
-    function downvote(uint256 _commentIndex) public {
-        require(_commentIndex < comments.length, "Invalid comment index");
+    function upvote(uint256 _commentId) public {
+        require(_commentId > 0 && _commentId <= comments.length, "Invalid comment ID");
+        require(bytes(userAccounts[msg.sender]).length > 0, "Commenter does not exist");
+        require(!isUserInArray(getComment(_commentId).upvoters, msg.sender), "Already upvoted");
 
-        Comment storage comment = comments[_commentIndex];
-        require(!comment.downvoters[msg.sender], "Already downvoted");
+        getComment(_commentId).upvoters.push(msg.sender);
+        getComment(_commentId).votes++;
+    }
 
-        comment.downvoters[msg.sender] = true;
-        comment.votes--;
+    function downvote(uint256 _commentId) public {
+        require(_commentId > 0 && _commentId <= comments.length, "Invalid comment ID");
+        require(bytes(userAccounts[msg.sender]).length > 0, "Commenter does not exist");
+        require(!isUserInArray(getComment(_commentId).downvoters, msg.sender), "Already downvoted");
+
+        getComment(_commentId).downvoters.push(msg.sender);
+        getComment(_commentId).votes--;
+    }
+
+    function getCommentVotes(uint256 _commentId) public view returns (int) {
+        require(_commentId > 0 && _commentId <= comments.length, "Invalid comment ID");
+        return getComment(_commentId).votes;
+    }
+
+    function getComment(uint256 _commentId) internal view returns (Comment storage) {
+        return comments[_commentId - 1];
+    }
+
+    function showUserInfo(string memory _username) public view returns (address, int, uint256[] memory) {
+        require(usernameToAddress[_username] != address(0), "User does not exist");
+
+        address userAddress = usernameToAddress[_username];
+        int userVotes = 0;
+        uint256[] memory userCommentIds = new uint256[](comments.length);
+        uint256 commentCount = 0;
+
+        for (uint256 i = 0; i < comments.length; i++) {
+            if (keccak256(bytes(comments[i].username)) == keccak256(bytes(_username))) {
+                userVotes += comments[i].votes;
+                userCommentIds[commentCount] = comments[i].id;
+                commentCount++;
+            }
+        }
+
+        // Trim the array to remove empty elements if any
+        uint256[] memory trimmedUserCommentIds = new uint256[](commentCount);
+        for (uint256 i = 0; i < commentCount; i++) {
+            trimmedUserCommentIds[i] = userCommentIds[i];
+        }
+
+        return (userAddress, userVotes, trimmedUserCommentIds);
+}
+
+    function isUserInArray(address[] memory _array, address _user) internal pure returns (bool) {
+        for (uint256 i = 0; i < _array.length; i++) {
+            if (_array[i] == _user) {
+                return true;
+            }
+        }
+        return false;
     }
 }
