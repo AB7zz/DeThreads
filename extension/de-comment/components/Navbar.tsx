@@ -6,8 +6,8 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 const Navbar = () => {
     const {setPage, darkMode, setDarkMode} = useStateContext()
     return (
-        <div className='bg-black py-3 px-5 flex justify-between'>
-            <div className='cursor-pointer bg-[#2C2C2C] rounded-[50%] px-2 py-1'>
+        <div className='bg-black py-3 px-5 flex justify-between items-center'>
+            <div className='cursor-pointer bg-[#2C2C2C] rounded-[50%] px-2 py-1 h-full'>
                 <span className='text-white'>A</span>
             </div>
             <h2 className='cursor-pointer text-center text-[#9DFFA1] text-lg'>DeThreads</h2>

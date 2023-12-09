@@ -6,7 +6,7 @@ import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 const BotNav = () => {
     const {setPage} = useStateContext()
     return (
-        <div className='border-t-1 border-white bg-black px-5 py-3 flex justify-between'>
+        <div className='fixed bottom-0 w-full border-t-1 border-white bg-black px-5 py-3 flex justify-around'>
             <div className='cursor-pointer' onClick={() => setPage('/comments')}>
                 <ChatBubbleOutlineOutlinedIcon className='text-[#9DFFA1]' />
             </div>
