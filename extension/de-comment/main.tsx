@@ -6,7 +6,6 @@ import Comments from '~pages/Comments'
 import Connect from '~pages/Connect'
 import Home from '~pages/Home'
 import Profile from '~pages/Profile'
-import TestIPFS from '~pages/TestIPFS'
 import '~style.css'
 
 const Main = () => {
@@ -31,10 +30,6 @@ const Main = () => {
         }else if(page == '/profile'){
             return(
                 <Profile />
-            )
-        }else if(page == '/testipfs'){
-            return(
-                <TestIPFS />
             )
         }else if(page == '/connect'){
             return(
