@@ -14,6 +14,7 @@ export const config: PlasmoCSConfig = {
 function Content() {
   const htmlPort = usePort("html")
   const [display, setDisplay] = React.useState(false)
+  const [url, setURL] = React.useState('')
   const [commentBox, setCommentBox] = React.useState(true)
   React.useEffect(() => {
     htmlPort.send({
@@ -24,6 +25,7 @@ function Content() {
  React.useEffect(() => {
   if (htmlPort.data?.watching) {
     console.log(htmlPort.data?.watching)
+    setURL(htmlPort.data?.url)
     setDisplay(true)
   }else{
     console.log(htmlPort.data?.watching)
@@ -86,7 +88,7 @@ function Content() {
         borderRadius: "10px"
       }}
       >
-        <iframe height="100%" src="http://localhost:5173" />
+        <iframe height="100%" src={`http://localhost:5173?url=${url}`} />
       </div>}
     </>
   )
