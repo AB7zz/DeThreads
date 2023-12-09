@@ -4,6 +4,8 @@ import Navbar from '~components/Navbar'
 import { useStateContext } from '~context/StateContext'
 import Comments from '~pages/Comments'
 import Home from '~pages/Home'
+import Profile from '~pages/Profile'
+import TestIPFS from '~pages/TestIPFS'
 import '~style.css'
 
 const Main = () => {
@@ -17,6 +19,15 @@ const Main = () => {
             return(
                 <Comments />
             )
+        }else if(page == '/profile'){
+            return(
+                <Profile />
+            )
+        }else if(page == '/testipfs'){
+            return(
+                <TestIPFS />
+            )
+        
         }
     }
 
