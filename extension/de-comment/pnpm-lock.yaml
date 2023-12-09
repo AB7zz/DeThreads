@@ -1154,7 +1154,7 @@ packages:
       '@metamask/safe-event-emitter': 2.0.0
       '@types/chrome': 0.0.136
       detect-browser: 5.3.0
-      eth-rpc-errors: 4.0.3
+      eth-rpc-errors: 4.0.2
       extension-port-stream: 2.1.1
       fast-deep-equal: 2.0.1
       is-stream: 2.0.1
@@ -4535,8 +4535,8 @@ packages:
       '@types/estree': 1.0.5
     dev: false
 
-  /eth-rpc-errors@4.0.3:
-    resolution: {integrity: sha512-Z3ymjopaoft7JDoxZcEb3pwdGh7yiYMhOwm2doUt6ASXlMavpNlK6Cre0+IMl2VSGyEU9rkiperQhp5iRxn5Pg==}
+  /eth-rpc-errors@4.0.2:
+    resolution: {integrity: sha512-n+Re6Gu8XGyfFy1it0AwbD1x0MUzspQs0D5UiPs1fFPCr6WAwZM+vbIhXheBFrpgosqN9bs5PqlB4Q61U/QytQ==}
     dependencies:
       fast-safe-stringify: 2.1.1
     dev: false
@@ -5213,7 +5213,7 @@ packages:
     engines: {node: '>=10.0.0'}
     dependencies:
       '@metamask/safe-event-emitter': 2.0.0
-      eth-rpc-errors: 4.0.3
+      eth-rpc-errors: 4.0.2
     dev: false
 
   /json-rpc-middleware-stream@3.0.0:
