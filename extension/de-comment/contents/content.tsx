@@ -14,7 +14,7 @@ export const config: PlasmoCSConfig = {
 function Content() {
   const htmlPort = usePort("html")
   const [display, setDisplay] = React.useState(false)
-  const [commentBox, setCommentBox] = React.useState(false)
+  const [commentBox, setCommentBox] = React.useState(true)
   React.useEffect(() => {
     htmlPort.send({
       message: "run_get_html_data"
@@ -81,12 +81,12 @@ function Content() {
         position: "fixed",
         left: "70%",
         top: 0,
-        width: "350px",
+        width: "370px",
         height: "500px",
         borderRadius: "10px"
       }}
       >
-        <iframe height="100%" src="https://htmlcolorcodes.com/color-picker/" />
+        <iframe height="100%" src="http://localhost:5173" />
       </div>}
     </>
   )

@@ -16,15 +16,25 @@ const Thread = () => {
   //     });
   // }, [])
   return (
-    <div className="py-5 px-5 bg-black h-2/3 w-2/3 flex flex-col overflow-hidden mt-5 mx-auto border-2 border-gray-700	">
-      <h3 className="text-white text-center text-xl font-bold">TAb Title</h3>
+    <div className="py-5 bg-black flex flex-col overflow-hidden mt-5 mx-auto ">
+      <h3 className="text-white text-center text-xl font-bold">Tab Title</h3>
+      
+      <div className="my-5 flex flex-col px-5 w-[89%]">
+        <textarea
+          className="w-auto bg-transparent border !border-1 border-white focus:!border-[#8991A0] text-white p-3 rounded-md"
+          placeholder="Add a comment"
+        />
+        <button className="w-auto px-5 py-1 my-3 font-semibold text-center text-black rounded bg-[#9DFFA1] hover:bg-[#224723]">
+          Comment!
+        </button>
+      </div>
 
       <div className="m-10">
         <div className="flex items-center">
           <div className="cursor-pointer bg-[#2C2C2C] rounded-[50%] px-2 py-1 mr-3">
             <span className="text-white">A</span>
           </div>
-          <h3 className="text-white font-semibold">Abhinav C V</h3>
+          <h3 className="text-white font-semibold">AB7zz</h3>
         </div>
         <p className="my-3 text-white pl-10">
           You know, it doesn’t matter what players we buy or what manager we
@@ -60,7 +70,7 @@ const Thread = () => {
               <div className="cursor-pointer bg-[#2C2C2C] rounded-[50%] px-2 py-1 mr-3">
                 <span className="text-white">A</span>
               </div>
-              <h3 className="text-white font-semibold">Abhinav C V</h3>
+              <h3 className="text-white cursor-pointer font-semibold">AB7zz</h3>
             </div>
             <p className="my-3 pl-10 text-white">True true</p>
             <div className="flex">
@@ -72,17 +82,6 @@ const Thread = () => {
                 <span className="text-[#8991A0]">Reply</span>
               </div>
             </div>
-          </div>
-        )}
-        {showComments && (
-          <div className="my-5 flex flex-col w-1/4">
-            <textarea
-              className="w-auto bg-transparent border !border-1 border-white focus:!border-[#8991A0] text-white p-3 rounded-md"
-              placeholder="Add a comment"
-            />
-            <button className="w-auto px-5 py-1 my-3 font-semibold text-center text-black rounded bg-[#9DFFA1] hover:bg-[#224723]">
-              Comment!
-            </button>
           </div>
         )}
       </div>
