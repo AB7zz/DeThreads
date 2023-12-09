@@ -13,14 +13,14 @@ interface StateContextValue extends StateContextState {
 
 const MyStateContext = React.createContext<StateContextValue>({
     darkMode: false,
-    page: '/home',
+    page: '/comments',
     setDarkMode: () => {},
     setPage: () => {}
 });
 
 export const MyStateProvider = ({ children }) => {
     const [darkMode, setDarkMode] = React.useState(false)
-    const [page, setPage] = React.useState('/home')
+    const [page, setPage] = React.useState('/comments')
     return (
         <MyStateContext.Provider value={{
             darkMode,
