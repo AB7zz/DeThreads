@@ -5,9 +5,17 @@ import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 
 const Comments = () => {
   const [showReplies, setShowReplies] = React.useState(false)
+  const [tabTitle, setTabTitle] = React.useState('' as string)
+    React.useEffect(() => {
+        chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+            const activeTab = tabs[0];
+            const tabTitle = activeTab ? activeTab.title : '';
+            setTabTitle(tabTitle)
+        });
+    }, [])
   return (
     <div className='py-5 px-5 bg-black h-full mb-[35px]'>
-      <h3 className='text-white text-center text-xl font-bold'>rgb color picker</h3>
+      <h3 className='text-white text-center text-xl font-bold'>{tabTitle}</h3>
       <div className='my-5 flex flex-col'>
         <textarea className='w-[335px] bg-transparent border !border-1 border-white focus:!border-[#8991A0] text-white p-3 rounded-md' placeholder='Add a comment' />
         <button className='px-5 py-1 my-3 font-semibold text-center text-white rounded bg-[#2e6330] hover:bg-[#224723]'>Comment!</button>

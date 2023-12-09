@@ -10,7 +10,15 @@ import TestIPFS from '~pages/TestIPFS'
 import '~style.css'
 
 const Main = () => {
-    const {page, setPage} = useStateContext()
+    const {page, setPage, userDetails} = useStateContext()
+    React.useEffect(() => {
+        if(!userDetails.wallet){
+            setPage('/connect')
+        }else{
+            setPage('/profile')
+            // setPage('/connect')
+        }
+    }, [])
     const renderContent = () => {
         if(page == '/'){
             return (

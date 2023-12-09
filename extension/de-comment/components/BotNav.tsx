@@ -4,14 +4,14 @@ import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutline
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 
 const BotNav = () => {
-    const {setPage} = useStateContext()
+    const {setPage, page} = useStateContext()
     return (
         <div className='fixed bottom-0 w-full border-t-1 border-white bg-black px-5 py-3 flex justify-around'>
             <div className='cursor-pointer' onClick={() => setPage('/comments')}>
-                <ChatBubbleOutlineOutlinedIcon className='text-[#9DFFA1]' />
+                <ChatBubbleOutlineOutlinedIcon className={`${page == '/comments' ? 'text-[#9DFFA1]' : 'text-[#868686]'}`} />
             </div>
             <div className='cursor-pointer' onClick={() => setPage('/profile')}>
-                <PersonOutlinedIcon className='text-[#9DFFA1]' />
+                <PersonOutlinedIcon className={`${page == '/profile' ? 'text-[#9DFFA1]' : 'text-[#868686]'}`} />
             </div>
         </div>
     )
