@@ -14,11 +14,11 @@ const Comments = () => {
         });
     }, [])
   return (
-    <div className='py-5 px-5 bg-black h-full mb-[35px]'>
+    <div className='py-5 px-5 bg-black h-full mb-[35px] overflow-hidden'>
       <h3 className='text-white text-center text-xl font-bold'>{tabTitle}</h3>
       <div className='my-5 flex flex-col'>
         <textarea className='w-[335px] bg-transparent border !border-1 border-white focus:!border-[#8991A0] text-white p-3 rounded-md' placeholder='Add a comment' />
-        <button className='px-5 py-1 my-3 font-semibold text-center text-white rounded bg-[#2e6330] hover:bg-[#224723]'>Comment!</button>
+        <button className='px-5 py-1 my-3 font-semibold text-center text-black rounded bg-[#9DFFA1] hover:bg-[#224723]'>Comment!</button>
       </div>
       <div className=''>
         <div className='flex items-center'>

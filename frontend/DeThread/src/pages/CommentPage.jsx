@@ -1,9 +1,12 @@
 import Navbar from "../components/Navbar.jsx";
-function Comment() {
-    return(
-        <div>
-            <Navbar/>
-        </div>
-    )
+import Thread from "../components/Thread.jsx";
+
+function CommentPage() {
+  return (
+    <div className="h-screen bg-black">
+      <Navbar />
+      <Thread />
+    </div>
+  );
 }
-export default Comment
+export default CommentPage;

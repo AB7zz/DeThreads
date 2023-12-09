@@ -1,0 +1,10 @@
+function Navbar() {
+  return (
+    <div className="bg-black w-screen top-0 h-20 flex items-center border-b-2 border-[#1A1A1A]">
+      <div className="m-3">
+        <h1 className="text-[#9DFFA1] text-4xl">DeThread</h1>
+      </div>
+    </div>
+  );
+}
+export default Navbar;
