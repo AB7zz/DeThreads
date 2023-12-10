@@ -1,6 +1,8 @@
 # DeThread
 
+## use cases:
 DeThread Aims to Solve Issues Censorship issues in conversations in social media platforms and to make a full free and censorship free conversation thread.
+
 Censorship-Free Conversation:
 Challenge: Centralized platforms often implement censorship, limiting free expression.
 DeThread Solution: Ensures uncensored conversations, empowering users to speak openly without fear of suppression or filtering.
@@ -19,7 +21,15 @@ DeThread Solution: Introduces live group chat, facilitating dynamic, real-time c
 
 User-Controlled Data:
 Challenge: Centralized systems compromise user data privacy and control.
-DeThread Solution: Decentralization empowers users, ensuring control over their data and 
+DeThread Solution: Decentralization empowers users, ensuring control over their data.
+
+## Challenges we ran into
+
+### Obstacle
+The initial plan was to build the entire comment thread and associated features within the extension. However, integrating blockchain tools posed a significant challenge due to limited support.
+
+### Solution: Using an IFrame Approach Mimicing an extension
+To Overcome this Challenge we developed a dedicated website for the comment thread and blockchain integration, accessed seamlessly through iframes, ensured users experience the benefits of blockchain without compromising usability. This approach provided a flexible and scalable architecture, overcoming limitations for unfiltered conversations within the extension.
 
 ## Installation
 
