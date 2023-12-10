@@ -57,28 +57,44 @@ contract CommentContract {
         return (usernames, walletAddresses);
     }
 
-    function readComments(string memory _url) public view returns (uint256[] memory) {
-        uint256 count = 0;
-        uint256 length = commentsMetadata.length;
+    function readComments(string memory _url) public view returns (string[] memory, address[] memory, string[] memory, int[] memory) {
+    uint256 length = comments.length;
+    
+    string[] memory commentTexts = new string[](length);
+    address[] memory userAddresses = new address[](length);
+    string[] memory usernames = new string[](length);
+    int[] memory commentVotes = new int[](length);
+    uint256[] memory timestamps = new uint256[](length);
 
-        for (uint256 i = 0; i < length; i++) {
-            if (keccak256(bytes(commentsMetadata[i].url)) == keccak256(bytes(_url))) {
-                count++;
-            }
+    uint256 commentCount = 0;
+
+    for (uint256 i = 0; i < length; i++) {
+        if (keccak256(bytes(comments[i].url)) == keccak256(bytes(_url))) {
+            commentTexts[commentCount] = comments[i].comment;
+            userAddresses[commentCount] = comments[i].userAddress;
+            usernames[commentCount] = comments[i].username;
+            commentVotes[commentCount] = comments[i].votes;
+            timestamps[commentCount] = block.timestamp; // Use block timestamp or a specific timestamp for each comment
+            commentCount++;
         }
-
-        uint256[] memory result = new uint256[](count);
-        uint256 index = 0;
-
-        for (uint256 i = 0; i < length; i++) {
-            if (keccak256(bytes(commentsMetadata[i].url)) == keccak256(bytes(_url))) {
-                result[index] = commentsMetadata[i].id;
-                index++;
-            }
-        }
-
-        return result;
     }
+
+    // Trim the arrays to remove empty elements if any
+    string[] memory trimmedCommentTexts = new string[](commentCount);
+    address[] memory trimmedUserAddresses = new address[](commentCount);
+    string[] memory trimmedUsernames = new string[](commentCount);
+    int[] memory trimmedCommentVotes = new int[](commentCount);
+
+    for (uint256 i = 0; i < commentCount; i++) {
+        trimmedCommentTexts[i] = commentTexts[i];
+        trimmedUserAddresses[i] = userAddresses[i];
+        trimmedUsernames[i] = usernames[i];
+        trimmedCommentVotes[i] = commentVotes[i];
+    }
+
+    return (trimmedCommentTexts, trimmedUserAddresses, trimmedUsernames, trimmedCommentVotes);
+}
+
 
     function upvote(uint256 _commentId) public {
         require(_commentId > 0 && _commentId <= comments.length, "Invalid comment ID");

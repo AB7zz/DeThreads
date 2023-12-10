@@ -17,7 +17,8 @@ const handler: PlasmoMessaging.PortHandler = async (req, res) => {
         });
         const watching = result[0].result;
         res.send({
-            watching: watching
+            watching: watching,
+            url: details.url
         })
       }
   });

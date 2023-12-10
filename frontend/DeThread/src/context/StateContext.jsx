@@ -4,7 +4,7 @@ import {useAddress, useContract, useMetamask, useContractWrite} from '@thirdweb-
 const MyStateContext = React.createContext()
 
 export const MyStateProvider = ({ children }) => {
-    const {contract} = useContract("0x08bAA308336ED50F7C081bF2493B79FEB50E27a9")
+    const {contract} = useContract("0x0f6571E6090513172cB9237E4B81DCD449d81A15")
     const {mutateAsync: insertComment} = useContractWrite(contract, 'insertComment')
     const address = useAddress()
     console.log(address)
@@ -16,14 +16,38 @@ export const MyStateProvider = ({ children }) => {
         karma: 0
     })
 
+    const handleInsertComment = async(url, comment) => {
+        const data = await insertComment({
+            args:[
+                url,
+                comment
+            ]
+        })
+        console.log(data)
+    }
+
+    const handleReadComments = async(url) => {
+        try{
+            if(contract){
+                console.log('handleReadComments')
+                const data = await contract.call('readComments', [url])
+                console.log(data)
+            }
+        }catch(error){
+            console.log(error)
+        }
+    }
+
     return (
         <MyStateContext.Provider value={{
             darkMode,
             userDetails,
             address,
             connect,
+            handleInsertComment,
             setUserDetails,
-            setDarkMode
+            setDarkMode,
+            handleReadComments
         }}>
         {children}
         </MyStateContext.Provider>
