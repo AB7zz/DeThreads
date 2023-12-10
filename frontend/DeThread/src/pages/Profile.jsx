@@ -2,12 +2,13 @@ import ArrowDropUpOutlinedIcon from "@mui/icons-material/ArrowDropUpOutlined";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import Navbar from "../components/Navbar";
+import BottomNav from "../components/BottomNavbar";
 
 const Profile = () => {
   return (
-    <div className="h-screen bg-black">
+    <div className="h-screen bg-black flex flex-col items-center">
       <Navbar />
-      <div className="h-full bg-gradient-to-b from-[#0f1a0f] via-black to-black mb-[35px] py-10">
+      <div className=" h-full w-full  bg-gradient-to-b from-[#0f1a0f] via-black to-black md:border md:border-s-[#9DFFA1] py-10">
         <div className="flex flex-col justify-center !border-b-1 border-[#9DFFA1] px-5">
           <div className="cursor-pointer m-auto bg-[#2C2C2C] rounded-[50%] px-7 py-6">
             <span className="text-white text-xl">A</span>
@@ -35,7 +36,7 @@ const Profile = () => {
           <div className="my-3 flex ">
             <ArrowDropUpOutlinedIcon className="cursor-pointer text-[#8991A0] hover:text-[#9DFFA1] mr-2" />
             <span className="mr-3 text-white font-semibold">10</span>
-            <ArrowDropDownOutlinedIcon className="cursor-pointer text-[#8991A0] hover:text-[#9DFFA1] mr-2" />
+            <ArrowDropDownOutlinedIcon className="cursor-pointer text-[#8991A0] hover:text-[#FF4127] mr-2" />
             <div className="items-center">
               <ReplyOutlinedIcon className="text-[#8991A0] mr-1" />
               <span className="text-[#8991A0] mr-1">0</span>
@@ -51,7 +52,7 @@ const Profile = () => {
           <div className="my-3 flex ">
             <ArrowDropUpOutlinedIcon className="cursor-pointer text-[#8991A0] hover:text-[#9DFFA1] mr-2" />
             <span className="mr-3 text-white font-semibold">10</span>
-            <ArrowDropDownOutlinedIcon className="cursor-pointer text-[#8991A0] hover:text-[#9DFFA1] mr-2" />
+            <ArrowDropDownOutlinedIcon className="cursor-pointer text-[#8991A0] hover:text-[#FF4127] mr-2" />
             <div className="items-center">
               <ReplyOutlinedIcon className="text-[#8991A0] mr-1" />
               <span className="text-[#8991A0] mr-1">0</span>
@@ -59,6 +60,7 @@ const Profile = () => {
             </div>
           </div>
         </div>
+        <BottomNav />
       </div>
     </div>
   );

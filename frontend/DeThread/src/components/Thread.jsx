@@ -18,16 +18,6 @@ const Thread = () => {
   return (
     <div className="py-5 bg-black flex flex-col overflow-hidden mt-5 mx-auto ">
       <h3 className="text-white text-center text-xl font-bold">Tab Title</h3>
-      
-      <div className="my-5 flex flex-col px-5 w-[89%]">
-        <textarea
-          className="w-auto bg-transparent border !border-1 border-white focus:!border-[#8991A0] text-white p-3 rounded-md"
-          placeholder="Add a comment"
-        />
-        <button className="w-auto px-5 py-1 my-3 font-semibold text-center text-black rounded bg-[#9DFFA1] hover:bg-[#224723]">
-          Comment!
-        </button>
-      </div>
 
       <div className="m-10">
         <div className="flex items-center">
@@ -85,6 +75,17 @@ const Thread = () => {
           </div>
         )}
       </div>
+      {showComments && (
+        <div className="my-5 flex flex-col px-5 w-[89%]">
+          <textarea
+            className="w-auto bg-transparent border !border-1 border-white focus:!border-[#8991A0] text-white p-3 rounded-md"
+            placeholder="Add a comment"
+          />
+          <button className="w-auto px-5 py-1 my-3 font-semibold text-center text-black rounded bg-[#9DFFA1] hover:bg-[#224723]">
+            Comment!
+          </button>
+        </div>
+      )}
     </div>
   );
 };
