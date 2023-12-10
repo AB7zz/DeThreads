@@ -14,7 +14,7 @@ const Thread = () => {
   const [comment, setComment] = React.useState('')
   
   React.useEffect(() => {
-    handleReadComments()
+    handleReadComments(url)
     console.log('changing c ontract', contract)
   }, [contract])
   //   const [tabTitle, setTabTitle] = React.useState('')

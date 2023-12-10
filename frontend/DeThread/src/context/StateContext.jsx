@@ -29,6 +29,7 @@ export const MyStateProvider = ({ children }) => {
     const handleReadComments = async(url) => {
         try{
             if(contract){
+                console.log(url)
                 console.log('handleReadComments')
                 const data = await contract.call('readComments', [url])
                 console.log(data)
