@@ -3,16 +3,17 @@ import ArrowDropUpOutlinedIcon from "@mui/icons-material/ArrowDropUpOutlined";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import { useStateContext } from "../context/StateContext";
-import {useSearchParams, useParams} from 'react-router-dom'
+import { useSearchParams, useParams } from "react-router-dom";
 
 const Thread = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const url = searchParams.get("url")
-  const {handleInsertComment, handleReadComments, address, contract} = useStateContext()
+  const url = searchParams.get("url");
+  const { handleInsertComment, handleReadComments, address, contract } =
+    useStateContext();
   const [showReplies, setShowReplies] = React.useState(false);
   const [showComments, setShowComments] = React.useState(false);
-  const [comment, setComment] = React.useState('')
-  
+  const [comment, setComment] = React.useState("");
+
   React.useEffect(() => {
     handleReadComments(url)
     console.log('changing c ontract', contract)
@@ -28,14 +29,17 @@ const Thread = () => {
   return (
     <div className="py-5 bg-black flex flex-col overflow-hidden mt-5 mx-auto ">
       <h3 className="text-white text-center text-xl font-bold">Tab Title</h3>
-      
+
       <div className="my-5 flex flex-col px-5 w-[89%]">
         <textarea
           onChange={(e) => setComment(url, e.target.value)}
           className="w-auto bg-transparent border !border-1 border-white focus:!border-[#8991A0] text-white p-3 rounded-md"
           placeholder="Add a comment"
         />
-        <button onClick={() => handleInsertComment(url, comment)} className="w-auto px-5 py-1 my-3 font-semibold text-center text-black rounded bg-[#9DFFA1] hover:bg-[#224723]">
+        <button
+          onClick={() => handleInsertComment(url, comment)}
+          className="w-auto px-5 py-1 my-3 font-semibold text-center text-black rounded bg-[#9DFFA1] hover:bg-[#224723]"
+        >
           Comment!
         </button>
       </div>
@@ -96,6 +100,17 @@ const Thread = () => {
           </div>
         )}
       </div>
+      {showComments && (
+        <div className="my-5 flex flex-col px-5 w-[89%]">
+          <textarea
+            className="w-auto bg-transparent border !border-1 border-white focus:!border-[#8991A0] text-white p-3 rounded-md"
+            placeholder="Add a comment"
+          />
+          <button className="w-auto px-5 py-1 my-3 font-semibold text-center text-black rounded bg-[#9DFFA1] hover:bg-[#224723]">
+            Comment!
+          </button>
+        </div>
+      )}
     </div>
   );
 };
