@@ -15,7 +15,7 @@ function Content() {
   const htmlPort = usePort("html")
   const [display, setDisplay] = React.useState(false)
   const [url, setURL] = React.useState('')
-  const [commentBox, setCommentBox] = React.useState(true)
+  const [commentBox, setCommentBox] = React.useState(false)
   React.useEffect(() => {
     htmlPort.send({
       message: "run_get_html_data"
@@ -59,7 +59,10 @@ function Content() {
             }}
             >
               <h3
-              onClick={() => setCommentBox(true)}
+              onClick={() => {
+                setDisplay(false)
+                setCommentBox(true)
+              }}
               style={{
                 color: "black",
                 fontFamily: "'Poppins', sans-serif",

@@ -7,7 +7,7 @@ const handler: PlasmoMessaging.PortHandler = async (req, res) => {
           const result = await chrome.scripting.executeScript({
             target: { tabId: details.tabId },
             func: (url) => {
-                if(url.includes('youtube')){
+                if(url.includes('youtube.com/watch?v=')){
                     return true
                 }else{
                     return false

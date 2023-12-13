@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 
-contract CommentContract {
+contract Lock {
     struct Comment {
         uint256 id;
         string url;
@@ -57,43 +57,37 @@ contract CommentContract {
         return (usernames, walletAddresses);
     }
 
-    function readComments(string memory _url) public view returns (string[] memory, address[] memory, string[] memory, int[] memory) {
-    uint256 length = comments.length;
-    
-    string[] memory commentTexts = new string[](length);
-    address[] memory userAddresses = new address[](length);
-    string[] memory usernames = new string[](length);
-    int[] memory commentVotes = new int[](length);
-    uint256[] memory timestamps = new uint256[](length);
+    function readComments(string memory _url) public view returns (Comment[] memory) {
+        uint256 length = comments.length;
 
-    uint256 commentCount = 0;
+        Comment[] memory result = new Comment[](length);
+        uint256 commentCount = 0;
 
-    for (uint256 i = 0; i < length; i++) {
-        if (keccak256(bytes(comments[i].url)) == keccak256(bytes(_url))) {
-            commentTexts[commentCount] = comments[i].comment;
-            userAddresses[commentCount] = comments[i].userAddress;
-            usernames[commentCount] = comments[i].username;
-            commentVotes[commentCount] = comments[i].votes;
-            timestamps[commentCount] = block.timestamp; // Use block timestamp or a specific timestamp for each comment
-            commentCount++;
+        for (uint256 i = 0; i < length; i++) {
+            if (keccak256(bytes(comments[i].url)) == keccak256(bytes(_url))) {
+                result[commentCount] = Comment({
+                    id: comments[i].id,
+                    url: comments[i].url,
+                    comment: comments[i].comment,
+                    userAddress: comments[i].userAddress,
+                    username: comments[i].username,
+                    votes: comments[i].votes,
+                    upvoters: comments[i].upvoters,
+                    downvoters: comments[i].downvoters,
+                    parentId: comments[i].parentId
+                });
+                commentCount++;
+            }
         }
+
+        // Comment[] memory trimmedResult = new Comment[](commentCount);
+        // 
+        // for (uint256 i = 0; i < commentCount; i++) {
+        //     trimmedResult[i] = result[i];
+        // }
+
+        return result;
     }
-
-    // Trim the arrays to remove empty elements if any
-    string[] memory trimmedCommentTexts = new string[](commentCount);
-    address[] memory trimmedUserAddresses = new address[](commentCount);
-    string[] memory trimmedUsernames = new string[](commentCount);
-    int[] memory trimmedCommentVotes = new int[](commentCount);
-
-    for (uint256 i = 0; i < commentCount; i++) {
-        trimmedCommentTexts[i] = commentTexts[i];
-        trimmedUserAddresses[i] = userAddresses[i];
-        trimmedUsernames[i] = usernames[i];
-        trimmedCommentVotes[i] = commentVotes[i];
-    }
-
-    return (trimmedCommentTexts, trimmedUserAddresses, trimmedUsernames, trimmedCommentVotes);
-}
 
 
     function upvote(uint256 _commentId) public {
