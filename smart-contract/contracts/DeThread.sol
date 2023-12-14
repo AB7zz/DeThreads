@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 
-contract Lock {
+contract DeThread {
     struct Comment {
         uint256 id;
         string url;
