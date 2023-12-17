@@ -24,16 +24,20 @@ contract DeThread {
     Comment[] public comments;
     CommentMetadata[] public commentsMetadata;
 
-    function createAccount(address _walletAddress, string memory _username) public {
+    function createAccount(string memory _username) public returns (bool) {
         require(usernameToAddress[_username] == address(0), "Username already exists");
+        address _walletAddress = msg.sender;
+
         userAccounts[_walletAddress] = _username;
         usernameToAddress[_username] = _walletAddress;
+        return true;
     }
 
-    function insertComment(string memory _url, string memory _comment) public {
+    function insertComment(string memory _url, string memory _comment) public returns (bool) {
         uint256 parentId = 0;
         comments.push(Comment(comments.length + 1, _url, _comment, msg.sender, userAccounts[msg.sender], 0, new address[](0), new address[](0), parentId));
         commentsMetadata.push(CommentMetadata(comments.length, _url));
+        return true;
     }
 
     function addReply(uint256 _parentCommentId, string memory _url, string memory _comment) public {
@@ -42,19 +46,6 @@ contract DeThread {
         uint256 parentId = _parentCommentId;
         comments.push(Comment(comments.length + 1, _url, _comment, msg.sender, userAccounts[msg.sender], 0, new address[](0), new address[](0), parentId));
         commentsMetadata.push(CommentMetadata(comments.length, _url));
-    }
-
-    function readUsers() public view returns (string[] memory, address[] memory) {
-        uint256 length = comments.length;
-        string[] memory usernames = new string[](length);
-        address[] memory walletAddresses = new address[](length);
-
-        for (uint256 i = 0; i < length; i++) {
-            usernames[i] = comments[i].username;
-            walletAddresses[i] = comments[i].userAddress;
-        }
-
-        return (usernames, walletAddresses);
     }
 
     function readComments(string memory _url) public view returns (Comment[] memory) {
@@ -79,12 +70,6 @@ contract DeThread {
                 commentCount++;
             }
         }
-
-        // Comment[] memory trimmedResult = new Comment[](commentCount);
-        // 
-        // for (uint256 i = 0; i < commentCount; i++) {
-        //     trimmedResult[i] = result[i];
-        // }
 
         return result;
     }
